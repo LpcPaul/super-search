@@ -2,6 +2,8 @@
 
 [简体中文](README.zh-CN.md)
 
+![Super Search: expand search coverage for free, merge duplicate sources, and check originals](super-search-intro.gif)
+
 A browser-based agent skill whose core value is **expanding search coverage and improving retrieval for free, without requiring paid accounts on other AI platforms**. It uses available free web-search modes across multiple services to find sources a single service may miss, then checks the originals.
 
 Find useful papers, articles, courses, projects and original posts, with direct links and independent source checks. No paid search API or Deep Research subscription is required.
