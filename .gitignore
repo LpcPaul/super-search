@@ -1,0 +1,12 @@
+# Local runtime state and account material must not be published.
+.env
+.env.*
+!.env.example
+cookies*.json
+storage-state*.json
+browser-profile/
+work/
+outputs/
+__pycache__/
+.DS_Store
+Thumbs.db
