@@ -1,0 +1,6 @@
+interface:
+  display_name: "超级搜索"
+  short_description: "通过多个 AI 免费拓展检索范围，按调用方选平台，核验原始来源"
+  default_prompt: "使用 $super-search，根据当前调用方选择平台，通过 Chrome 中可用的免费搜索拓展检索范围，核对原始资料并汇总新增发现。"
+policy:
+  allow_implicit_invocation: true
