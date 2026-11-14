@@ -20,14 +20,16 @@ AI-written explanations and agreement between models are not substitutes for sou
 
 ## Platforms and caller routing
 
-The default pool contains **ChatGPT, Claude, Grok, Gemini, Doubao, DeepSeek, Perplexity and Kimi**.
+The default pool contains **ChatGPT, Claude, Grok, Gemini, Doubao, DeepSeek and Perplexity**.
 
 | Calling agent | Default external targets |
 | --- | --- |
 | Codex / ChatGPT | All except ChatGPT |
 | Claude / Claude Code / Claude Desktop / Cowork | All except Claude |
-| Gemini, Grok, Doubao, DeepSeek, Perplexity or Kimi | All except the caller's corresponding service |
-| Another agent or unknown identity | All eight, with the uncertainty disclosed |
+| Gemini, Grok, Doubao, DeepSeek or Perplexity | All except the caller's corresponding service |
+| Another agent or unknown identity | All seven default services; disclose uncertainty when identity is unknown |
+
+Kimi is excluded from default searches and is used only when the user explicitly requests it.
 
 An explicit user platform list overrides automatic exclusion. Grouping Codex with ChatGPT is a routing convention, not a claim that they have identical search capabilities. Grok additionally searches public X/Twitter posts while retaining ordinary web search.
 

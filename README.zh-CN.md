@@ -22,14 +22,16 @@ AI 自己写出的长篇回答、模型之间的一致意见，不能代替原�
 
 ## 支持平台与调用方判断
 
-默认候选池包含 **ChatGPT、Claude、Grok、Gemini、豆包、DeepSeek、Perplexity、Kimi**。
+默认候选池包含 **ChatGPT、Claude、Grok、Gemini、豆包、DeepSeek、Perplexity**。
 
 | 当前调用方 | 默认检索目标 |
 | --- | --- |
-| Codex / ChatGPT | 除 ChatGPT 外的七家 |
-| Claude / Claude Code / Claude Desktop / Cowork | 除 Claude 外的七家，包含 ChatGPT |
-| Gemini、Grok、豆包、DeepSeek、Perplexity、Kimi | 排除自身对应网页，使用其余七家 |
-| 其他代理或身份未知 | 全部八家，并说明身份识别的不确定性 |
+| Codex / ChatGPT | 除 ChatGPT 外的六家 |
+| Claude / Claude Code / Claude Desktop / Cowork | 除 Claude 外的六家，包含 ChatGPT |
+| Gemini、Grok、豆包、DeepSeek、Perplexity | 排除自身对应网页，使用其余六家 |
+| 其他代理或身份未知 | 默认候选池全部七家；身份无法确认时说明不确定性 |
+
+Kimi 不参与默认检索；仅在用户明确指定 Kimi 时加入。
 
 用户明确指定的平台名单优先。将 Codex 与 ChatGPT 放在同一排除组是默认路由约定，不表示两者的搜索能力相同。Grok 在普通网络检索之外，额外查找相关公开 X/Twitter 帖子及其外链。
 

@@ -1,6 +1,6 @@
 ---
 name: super-search
-description: Super Search / 超级搜索：用户要求多 AI 搜索、对当前检索不满意，或代理判断多方检索有明显增量时，通过已登录的 Chrome 同题检索原始资料。支持 ChatGPT、Claude、Grok、Gemini、豆包、DeepSeek、Perplexity、Kimi，按调用方排除自身；登录时交还用户，不用于每次普通搜索。
+description: Super Search / 超级搜索：用户要求多 AI 搜索、对当前检索不满意，或代理判断多方检索有明显增量时，通过已登录的 Chrome 同题检索原始资料。支持 ChatGPT、Claude、Grok、Gemini、豆包、DeepSeek、Perplexity，按调用方排除自身；登录时交还用户，不用于每次普通搜索。
 ---
 
 # 超级搜索
@@ -21,17 +21,18 @@ description: Super Search / 超级搜索：用户要求多 AI 搜索、对当前
 
 ## 按调用方选择平台
 
-候选池为 **ChatGPT、Claude、Grok、Gemini、豆包、DeepSeek、Perplexity、Kimi**。默认目标集合 = 候选池 − 调用方对应网页；通常为七家，不固定数量。
+默认候选池为 **ChatGPT、Claude、Grok、Gemini、豆包、DeepSeek、Perplexity**。默认目标集合 = 候选池 − 调用方对应网页；通常为六家，不固定数量。
 
 | 当前调用方 | 默认排除 | 默认检索目标 |
 | --- | --- | --- |
-| Codex 或 ChatGPT | ChatGPT | Claude、Grok、Gemini、豆包、DeepSeek、Perplexity、Kimi |
-| Claude（包括 Claude Code、Claude Desktop/Cowork） | Claude | ChatGPT、Grok、Gemini、豆包、DeepSeek、Perplexity、Kimi |
-| Gemini、Grok、豆包、DeepSeek、Perplexity 或 Kimi | 自身对应的平台 | 候选池中其余七家 |
-| 其他调用方，或无法可靠识别 | 无 | 全部八家；明确说明调用方未知，不猜测身份 |
+| Codex 或 ChatGPT | ChatGPT | Claude、Grok、Gemini、豆包、DeepSeek、Perplexity |
+| Claude（包括 Claude Code、Claude Desktop/Cowork） | Claude | ChatGPT、Grok、Gemini、豆包、DeepSeek、Perplexity |
+| Gemini、Grok、豆包、DeepSeek、Perplexity | 自身对应的平台 | 候选池中其余六家 |
+| 其他调用方，或无法可靠识别 | 无 | 默认候选池全部七家；身份无法确认时说明不确定性，不猜测 |
 
 - 根据当前实际执行任务的代理身份和运行环境识别调用方，不根据已打开的网站、安装路径、文件夹名或第三方模型的回复猜测。Cursor、OpenClaw 等只说明运行容器；底层身份无法可靠确定时按未知处理。
 - 将 Codex 与 ChatGPT 放在同一排除组是本 skill 的默认去重约定，不表示两者的模型或搜索能力相同。当前代理自己的检索不计作一次额外的第三方网页检索。
+- Kimi 不参与默认检索；仅在用户明确指定 Kimi 时加入。
 - 用户明确指定平台名单或要求包含自身网页时，以用户名单为准，不再自动减去自身；其他渠道不自行加入候选池。
 - 开始派发前简短说明本轮实际选中的目标平台；只排除默认对应网页，不影响主代理查证原始来源。
 
@@ -53,12 +54,12 @@ description: Super Search / 超级搜索：用户要求多 AI 搜索、对当前
 | 豆包 | https://www.doubao.com/ | 同一研究问题，收集其实际引用的原始资料 |
 | DeepSeek | https://chat.deepseek.com/ | 按当前页面选择搜索功能；自述“已联网”不构成证据 |
 | Perplexity | https://www.perplexity.ai/ | 同一研究问题，提取引用面板中的真实来源，不只提取回答正文 |
-| Kimi | https://www.kimi.com/ | 同一研究问题；按页面可用能力启用搜索并读取实际引用 |
+| Kimi（仅用户明确指定时） | https://www.kimi.com/ | 同一研究问题；按页面可用能力启用搜索并读取实际引用 |
 
 - 按调用方规则选定后，所有目标平台都尝试，不因某一平台可用就省略其他家。只在用户限制、不可访问、登录、额度或服务失败时跳过，并报告实际覆盖范围。
 - 为当前任务新开 Chrome 标签与新对话；保留用户原有标签和对话，不改变其内容。观察真实页面后再定位输入框、联网开关和发送按钮，不能假设选择器固定不变。
 - 优先启用免费可用的普通联网搜索能力，不以高级模型、付费搜索或订阅为运行前提。未具备联网能力的平台可以补充线索，但明确标为“未确认联网”，不能算完成了联网检索。
-- Perplexity、Kimi 和其他平台的深度研究均不是必需；只有用户要求且账号已具备相应权限和额度时才启用，不因普通搜索不够理想就自动消耗额外付费额度。
+- 各平台的深度研究均不是必需；只有用户要求且账号已具备相应权限和额度时才启用，不因普通搜索不够理想就自动消耗额外付费额度。
 - 不购买订阅、充值、切换计费方案，或自动启用额外付费的深度研究。普通账号现有能力不足时如实报告。
 - 出现登录墙且确实无法获取结果时，提醒：“Chrome 中的【平台】需要登录。请在对应标签页完成登录，完成后告诉我继续。”不得索取或读取密码、验证码、令牌、Cookie，不代过验证。
 - 仍可继续其他已登录平台；需要登录的平台保持待续，不把超时视为用户拒绝或授权。恢复时从原标签/对话继续。
